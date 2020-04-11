@@ -8,16 +8,16 @@ mongoose.connext(
 
 const bookSeed = [
     {
-        title: "A song of fire and ice",
-        author: "",
-        description: "",
+        title: "",
+        author: "George R. R. Martin",
+        description: "Porn",
         image: "",
         link: "",
         date: ""
     }
 ];
 
-db.book
+db.Book
     .remove({})
     .then(() => db.Book.collection.insertMany(bookSeed))
     .then(data => {

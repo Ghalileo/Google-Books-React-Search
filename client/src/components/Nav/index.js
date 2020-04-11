@@ -3,32 +3,33 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import { Link } from "react-router-dom";
 
 function Navb (props) {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand navv" to="/">
-        Google Books
-      </Link>
-      <div>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-          <Link
+    <div>
+      <Navbar color="faded" light>
+        <NavbarBrand href="/" className="mr-auto">Google Books</NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav navbar>
+            <NavItem>
+            <Link
               to="/Search"
-              className={window.location.pathname === "/Search" ? "nav-link active navv" : "nav-link"} 
-            >
-              Search
-            </Link>
-          </li>
-          <li className="nav-item">
+              className={window.location.pathname === "/search" ? "nav-link active navv" : "nav-link"} 
+            >Search</Link>
+            </NavItem>
+            <NavItem>
             <Link
               to="/Saved"
-              className={window.location.pathname === "/saved" ? "nav-link active" : "nav-link"}
-            >
-              Saved
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+              className={window.location.pathname === "/saved" ? "nav-link active navv" : "nav-link"} 
+            >Saved</Link>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
   );
 }
 
