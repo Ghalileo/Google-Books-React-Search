@@ -7,8 +7,8 @@ export default {
     getBook: (id) => {
         return axios.get("/api/books/" + id);
     },
-    searchBook: (query) => {
-        let inquiry = `https://www.googleapis.com/books/v1/volume?q=${query}&maxResults=25`
+    searchBook: function (query) {
+        let inquiry = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=5`
         return axios.get(inquiry)
     }
 }

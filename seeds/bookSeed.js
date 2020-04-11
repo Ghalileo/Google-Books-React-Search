@@ -9,8 +9,8 @@ mongoose.connext(
 const bookSeed = [
     {
         title: "",
-        author: "George R. R. Martin",
-        description: "Porn",
+        author: "",
+        description: "",
         image: "",
         link: "",
         date: ""
