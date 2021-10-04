@@ -4,9 +4,11 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "antd": "^4.16.13",
     "react": "^16.6.3",
     "react-dom": "^16.13.1",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.1",
     "reactstrap": "^8.4.1"

@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Button, CardTitle, CardText, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Card, Avatar  } from 'antd'
 import API from '../utils/API';
+import {AiTwotoneBook} from 'react-icons/ai'
+
 import './search.css'
 
 const {Meta} = Card;
@@ -55,7 +57,7 @@ const handleInputChange = (event) => {
                    <h4 className="apidata apiAuthor">{novels.volumeInfo.authors}</h4>
                    <h5 className="apidata apiDescription">{novels.volumeInfo.description}</h5>
                    <br/>
-                   <a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><div>View Book</div></a>
+                   <a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><AiTwotoneBook/></a>
                  </Col>
                </Row>
                <br/>
