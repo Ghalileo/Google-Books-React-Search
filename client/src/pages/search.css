@@ -1,0 +1,16 @@
+.resultingImg{
+    float:left;
+    /* position: relative;
+    top: 100px; */
+    margin-right: 10px;
+}
+
+.apiData{
+    text-align: left;
+    
+}
+@media screen and (max-width:600px) {
+    .resultImg{
+        position: absolute;
+    }
+}
