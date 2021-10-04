@@ -38,32 +38,36 @@ const handleInputChange = (event) => {
           </Card>
         </Col>
       </Row>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <CardTitle className="centerTitle" style={{textAlign: "center"}}>Results</CardTitle>
+      
       {searchQuery.map(novels => {
           return (
             <div>
                 
             <Row>
-            <Col sm="12">
+              
+              <Col sm="6">
+              <img src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"}/>
+              </Col>
+            <Col sm="6">
             <Card body>
-            <CardTitle className="centerTitle">Search List</CardTitle>
-            <CardText>Results</CardText>
-            <ul><li>{novels.volumeInfo.title}</li>
+            
+            {/* <CardText>Results</CardText> */}
+            
+            <ul>
+            <h4>Title</h4>
+              <li>{novels.volumeInfo.title}</li>
             <br/>
+            <h4>Authors</h4>
             <li>{novels.volumeInfo.authors}</li>
             <br/>
+            <h4>Descriptions</h4>
             <li>{novels.volumeInfo.description}</li>
             <br/>
-            <li>{novels.volumeInfo.infoLink}</li>
+            <h4>Link</h4>
+            <a href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><li>{novels.volumeInfo.infoLink}</li></a>
             <br />
-            <img src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"}/>
+            
             </ul>
           </Card>
         </Col>
