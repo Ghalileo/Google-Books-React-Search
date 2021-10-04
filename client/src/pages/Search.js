@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Button, CardTitle, CardText, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Card, Avatar  } from 'antd'
 import API from '../utils/API';
-import {AiTwotoneBook} from 'react-icons/ai'
+import {BsBookHalf, BsStarHalf} from 'react-icons/bs'
+
 
 import './search.css'
 
@@ -31,15 +32,24 @@ const handleInputChange = (event) => {
       <Row>
         <Col md="12">
           <Card body>
-            <CardTitle className="centerTitle">Google Books Search</CardTitle>
-            <CardText>Search and Save Books you like!</CardText>
-            <Form inline>
+            <h4 className="centerTitle" style={{textAlign: "center"}}>Search and Save Books you like!</h4>
+            <br/>
+            <br/>
+            <br/>
+            {/* <CardText>Search and Save Books you like!</CardText> */}
+            <Form >
+            
       <FormGroup>
+        
         <Label for="book" hidden>Email</Label>
         <Input type="text" name="input" onChange={handleInputChange} id="exampleSearch" className ="formInputs" placeholder="Search Book" />
+        
       </FormGroup>
+      
       {' '}
-      <Button type ="submit" onClick={handleSubmit} className="buttonSe">Search</Button>
+      <div style={{textAlign:"center"}}>
+      <Button type ="submit" onClick={handleSubmit} className="buttonSe" >Search</Button>
+      </div>
     </Form>
           </Card>
         </Col>
@@ -54,10 +64,10 @@ const handleInputChange = (event) => {
                  <Col sm="12">
                    <img className="resultingImg"src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"} />
                    <h3 className="apidata apiTitle">{novels.volumeInfo.title}</h3>
-                   <h4 className="apidata apiAuthor">{novels.volumeInfo.authors}</h4>
+                   <h4 className="apidata apiAuthor">{novels.volumeInfo.authors}</h4> <div><a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><BsBookHalf/></a><BsStarHalf className="saveIcon"/></div>
                    <h5 className="apidata apiDescription">{novels.volumeInfo.description}</h5>
                    <br/>
-                   <a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><AiTwotoneBook/></a>
+                   
                  </Col>
                </Row>
                <br/>

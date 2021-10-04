@@ -7,7 +7,7 @@ const Home = () => {
         <>
         <br/>
         <br/>
-            <h1 style={{textAlign: "center"}}>Google Books Search</h1>
+            <h1 style={{textAlign: "center"}}>(React) Google Books Search</h1>
             <Search></Search>
         </>
     )
