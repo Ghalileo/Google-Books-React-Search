@@ -3,6 +3,7 @@ import { Button, CardTitle, CardText, Row, Col, Form, FormGroup, Label, Input } 
 import { Card, Avatar  } from 'antd'
 import API from '../utils/API';
 import {BsBookHalf, BsStarHalf} from 'react-icons/bs'
+import {GiArchiveResearch} from 'react-icons/gi'
 
 
 import './search.css'
@@ -48,7 +49,8 @@ const handleInputChange = (event) => {
       
       {' '}
       <div style={{textAlign:"center"}}>
-      <Button type ="submit" onClick={handleSubmit} className="buttonSe" >Search</Button>
+      <Button type ="submit" onClick={handleSubmit} className="searchBtn" ><GiArchiveResearch className="searchBtnIcon" /></Button>
+      {/* <GiArchiveResearch type ="submit" onClick={handleSubmit} className="searchBtn"  /> */}
       </div>
     </Form>
           </Card>

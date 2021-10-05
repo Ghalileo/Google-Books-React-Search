@@ -20,6 +20,11 @@
     color: cornflowerblue;
     
 }
+.searchBtn:hover{
+    color:rgb(46, 147, 248);
+    transition: 0.9s;
+    max-width: 500px;
+}
 @media screen and (max-width:600px) {
     .resultImg{
         position: absolute;
