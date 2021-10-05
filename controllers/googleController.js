@@ -14,11 +14,13 @@ module.exports = {
             .get("https://www.googleapis.com/books/v1/volumes", {
                 params
             }).then(results =>
+                results.VolumeInfo.imageLinks &&
+                results.VolumeInfo.imageLinks.thumbnail &&
                 results.VolumeInfo.title &&
                 results.VolumeInfo.author &&
-                results.VolumeInfo.description &&
-                results.VolumeInfo.imageLinks &&
-                results.VolumeInfo.imageLinks.thumbnail ).then(apiBooks => 
+                results.VolumeInfo.infoLink &&
+                results.VolumeInfo.description 
+                 ).then(apiBooks => 
                     db.Book.find().then(dbBooks =>
                         apiBooks.filter(apiBook =>
                             dbBooks.every(dbBook => dbBook.googleId.toString() !== apiBook.id))))

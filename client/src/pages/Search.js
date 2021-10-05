@@ -44,15 +44,15 @@ const getBooks = (q) => {
 }
 
 const handleBooksSave = (id) => {
-  const book = this.state.books.find(book => book.id === id);
+  const book = searchQuery.state.books.find(book => book.id === id);
 
   API.saveBook({
+    image: book.volumeInfo.imageLinks.thumbnail,
     title: book.volumeInfo.title,
-    subtitle: book.volumeInfo.subtitle,
-      link: book.volumeInfo.infoLink,
-      authors: book.volumeInfo.authors,
-      description: book.volumeInfo.description,
-      image: book.volumeInfo.imageLinks.thumbnail
+    author: book.volumeInfo.author,
+    link: book.volumeInfo.infoLink,
+    description: book.volumeInfo.description,
+      
   }).then(() => this.getBooks());
   
 }

@@ -1,15 +1,43 @@
-import React from 'react';
+import { React, Component} from 'react';
+import API from "../utils/API"
 import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Container } from "react-bootstrap"
+import Jumbotron from 'reactstrap/lib/Jumbotron';
 
-function Saved (props) {
+
+class Saved extends Component {
+
+  state = {
+    books:[]
+  }
+
+  componentDidMount() {
+    this.getSavedBooks();
+  }
+
+  getSavedBooks = () => {
+    API.getSavedBooks()
+    .then(res =>
+      this.setState({
+        books: res.data
+      })).catch(err => console.log(err))
+  }
+
+  handleBookDelete = (id) => {
+    API.deleteBook(id).then(res => this.setSavedBooks());
+  };
+
+render() {
     return (
-    <div>
+    <Container>
       <Row>
         <Col md="12">
-          <Card body>
-            <CardTitle className="centerTitle">Google Books Search</CardTitle>
-            <CardText>Search and Save Books you like!</CardText>
-          </Card>
+          <Jumbotron>
+            <h1 className="text-center">
+              <strong>(React) Google Books Sarch</strong>
+            </h1>
+            <h2 className="text-center">Search for and Save Books of Interest</h2>
+          </Jumbotron>
         </Col>
       </Row>
       <br/>
@@ -29,8 +57,9 @@ function Saved (props) {
           </Card>
         </Col>
       </Row>
-      </div>
+      </Container>
     );
+   }
   };
   
   export default Saved;
