@@ -1,18 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, setState, Component} from 'react';
 import { Button, CardTitle, CardText, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Card, Avatar  } from 'antd'
 import API from '../utils/API';
 import {BsBookHalf, BsStarHalf} from 'react-icons/bs'
 import {GiArchiveResearch} from 'react-icons/gi'
-
-
 import './search.css'
 
-const {Meta} = Card;
 
-function Search (props) {
+
+const Search = (props) => {
+  // state = {
+  //   books: [],
+  //   q:"",
+  //   message: "Search for a book to Start!"
+  // }
 const [search, setSearch] = useState({input: ""})
 const [searchQuery, setsearchQuery] = useState([])
+
 
 const handleInputChange = (event) => {
 
@@ -21,19 +25,44 @@ const handleInputChange = (event) => {
 }
 
 
-    const handleSubmit = (event) => {
+const handleSubmit = (event) => {
         event.preventDefault();
         API.searchBook(search.input)
         .then(res => setsearchQuery(res.data.items))
         .catch(err => console.log(err));
     }
 
+const getBooks = (q) => {
+  API.getBooks(this.state.q)
+  .then(res => this.setState({
+    book: res.data
+  })).catch(() =>
+  this.setState({
+    books: [],
+    message: "No New Books Retrieved.  Please try a new search."
+  }))
+}
+
+const handleBooksSave = (id) => {
+  const book = this.state.books.find(book => book.id === id);
+
+  API.saveBook({
+    title: book.volumeInfo.title,
+    subtitle: book.volumeInfo.subtitle,
+      link: book.volumeInfo.infoLink,
+      authors: book.volumeInfo.authors,
+      description: book.volumeInfo.description,
+      image: book.volumeInfo.imageLinks.thumbnail
+  }).then(() => this.getBooks());
+  
+}
+
     return (
     <div>
       <Row>
         <Col md="12">
           <Card body>
-            <h4 className="centerTitle" style={{textAlign: "center"}}>Search and Save Books you like!</h4>
+            <h4 className="centerTitle" style={{textAlign: "center"}}></h4>
             <br/>
             <br/>
             <br/>
@@ -66,7 +95,11 @@ const handleInputChange = (event) => {
                  <Col sm="12">
                    <img className="resultingImg"src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"} />
                    <h3 className="apidata apiTitle">{novels.volumeInfo.title}</h3>
-                   <h4 className="apidata apiAuthor">{novels.volumeInfo.authors}</h4> <div><a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><BsBookHalf/></a><BsStarHalf className="saveIcon"/></div>
+                   <h4 className="apidata apiAuthor">{novels.volumeInfo.authors}</h4> 
+                   <div>
+                     <a className="apidata apiInfoLink" href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><BsBookHalf/></a>
+                     <button className="saveBtn" onClick={handleBooksSave}><BsStarHalf className="saveIcon"/></button>
+                     </div>
                    <h5 className="apidata apiDescription">{novels.volumeInfo.description}</h5>
                    <br/>
                    
@@ -75,47 +108,7 @@ const handleInputChange = (event) => {
                <br/>
                </>
              )
-    //       return (
-    //         <div>
-                
-    //         <Row>
-              
-    //           {/* <Col >
-    //           <img className="resultImg" src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"} width="250" height="250"/>
-    //           </Col> */}
-    //         <Col sm="6">
-    //         <Card 
-    //         style={{width: 300}}
-    //         cover={<img alt="book" src={(novels.volumeInfo.imageLinks) ? novels.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"}/>}
-    //         >
-    //         <Meta
-    //   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-    //   title="Card title"
-    //   description="This is the description"
-    // />
-    
-    //         <CardText>Results</CardText>
-            
-    //         <ul>
-    //         <h4>Title</h4>
-    //           <li>{novels.volumeInfo.title}</li>
-    //         <br/>
-    //         <h4>Authors</h4>
-    //         <li>{novels.volumeInfo.authors}</li>
-    //         <br/>
-    //         <h4>Descriptions</h4>
-    //         <li>{novels.volumeInfo.description}</li>
-    //         <br/>
-    //         <h4>View</h4>
-    //         <a href={novels.volumeInfo.infoLink} target="_blank" rel="noopener"><li>View Book</li></a>
-    //         <br />
-            
-    //         </ul>
-    //       </Card>
-    //     </Col>
-    //   </Row>
-    //         </div>
-    //       )
+    //      
       }
           
       )}
