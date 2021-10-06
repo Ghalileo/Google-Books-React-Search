@@ -1,7 +1,8 @@
-import { React, Component} from 'react';
+import React, {  Component} from 'react';
 import API from "../utils/API"
 import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { Container } from "react-bootstrap"
+import Book from '../components/Books'
 import Jumbotron from 'reactstrap/lib/Jumbotron';
 
 
@@ -34,10 +35,34 @@ render() {
         <Col md="12">
           <Jumbotron>
             <h1 className="text-center">
-              <strong>(React) Google Books Sarch</strong>
+              <strong>(React) Google Books Search</strong>
             </h1>
             <h2 className="text-center">Search for and Save Books of Interest</h2>
           </Jumbotron>
+        </Col>
+      </Row>
+      <Row>
+        <Col size="md-12">
+          <Card title="Saved Books" icon="download">
+            {this.state.books.map(book => (
+              <Book
+              key={book._id}
+              title={book.title}
+              authors={book.authors.join(", ")}
+              description={book.description}
+              image={book.image}
+              Button={() => (
+                <button
+                onClick={() => this.handleBookDelete(book._id)}
+                className="btn btn-danger ml-2"
+                >
+                  </button>
+              )}
+              />
+
+              
+            ))}
+          </Card>
         </Col>
       </Row>
       <br/>

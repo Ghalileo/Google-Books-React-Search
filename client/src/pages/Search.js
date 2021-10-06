@@ -44,9 +44,10 @@ const getBooks = (q) => {
 }
 
 const handleBooksSave = (id) => {
-  const book = searchQuery.state.books.find(book => book.id === id);
+  const book = searchQuery.find(book => book.id === id);
 
   API.saveBook({
+    googleId: book.id,
     image: book.volumeInfo.imageLinks.thumbnail,
     title: book.volumeInfo.title,
     author: book.volumeInfo.author,
@@ -58,7 +59,62 @@ const handleBooksSave = (id) => {
 }
 
     return (
-    <div>
+     // <div>
+      //   <Container>
+      //     <Row>
+      //       <Col size="md-12">
+      //         <Jumbotron>
+      //           <h1 className="text-center">
+      //             <strong>(React) Google Books Search</strong>
+      //           </h1>
+      //           <h2 className="text-center">Search for and Save Books of Interest.</h2>
+      //         </Jumbotron>
+      //       </Col>
+      //       <Col size="md-12">
+      //         <Card title="Bok Search" icon="far fa-book">
+      //           <Form
+      //           handleInputChange={this.handleInputChange}
+      //           handleFormSubmit={this.handleFormSubmit}
+      //           q={this.state.q}
+      //           />
+      //         </Card>
+      //       </Col>
+      //     </Row>
+      //     <Row>
+      //       <Col size="md-12">
+      //         <Card title="Results">
+      //           {searchQuery.lenth ? (
+      //             <ListGroup>
+      //               {searchQuery.map(book => (
+      //                 <Book
+      //                 key={book.id}
+      //                 title={book.volumeInfo.title}
+      //                 authors={book.volumeInfo.authors.join(", ")}
+      //                 description={book.volumeInfo.description}
+      //                 image={book.volumeInfo.imageLinks.thumbnail}
+      //                 Button={() => (
+      //                   <button
+      //                   onClick={() => this.handleBooksSave(book.id)}
+      //                   className="btn btn-primary m1-2"
+      //                   >
+      //                     Save
+      //                   </button>
+      //                 )}
+      //                 />
+      //               ))}
+      //             </ListGroup>
+      //           ) : (
+      //             <h2 className="text-center">{this.state.message}</h2>
+      //           )}
+      //         </Card>
+      //       </Col>
+      //     </Row>
+      //   </Container>
+      // </div>
+
+      // Original 
+
+      <div>
       <Row>
         <Col md="12">
           <Card body>
@@ -66,7 +122,7 @@ const handleBooksSave = (id) => {
             <br/>
             <br/>
             <br/>
-            {/* <CardText>Search and Save Books you like!</CardText> */}
+            
             <Form >
             
       <FormGroup>
@@ -79,7 +135,7 @@ const handleBooksSave = (id) => {
       {' '}
       <div style={{textAlign:"center"}}>
       <Button type ="submit" onClick={handleSubmit} className="searchBtn" ><GiArchiveResearch className="searchBtnIcon" /></Button>
-      {/* <GiArchiveResearch type ="submit" onClick={handleSubmit} className="searchBtn"  /> */}
+    
       </div>
     </Form>
           </Card>
