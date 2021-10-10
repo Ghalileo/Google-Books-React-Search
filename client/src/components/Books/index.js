@@ -1,13 +1,15 @@
 import React from 'react';
-import {ListGroup} from 'react-bootstrap';
-import {Row, Col} from 'react-bootstrap';
+import { ListItem } from '../List';
+import {Row, Col} from '../Grid';
+import "./style.css"
+
 
 const Book = ({title, authors, link, description, image, Button}) => {
  
     return(
-        <ListGroup>
-            <Row>
-                <Col>
+        <ListItem>
+            <Row className="flex-wrap-reverse">
+                <Col size="md-8">
                 <h3 className="font-italic">{title}</h3>
                 </Col>
                 <Col>
@@ -17,7 +19,7 @@ const Book = ({title, authors, link, description, image, Button}) => {
             </Row>
             <Row>
                 <Col size="md-6">
-                    <a href={link} className="btn btn-light" target="_blank" rel="noopener noreferrer"></a>
+                    <a href={link} className="btn btn-light" target="_blank" rel="noopener noreferrer">View</a>
                 </Col>
             </Row>
             <Row>
@@ -28,7 +30,7 @@ const Book = ({title, authors, link, description, image, Button}) => {
                     <p>{description}</p>
                 </Col>
             </Row>
-        </ListGroup>
+        </ListItem>
     )
 }
 

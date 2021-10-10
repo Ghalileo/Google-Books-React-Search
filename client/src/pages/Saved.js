@@ -1,6 +1,8 @@
 import React, {  Component} from 'react';
 import API from "../utils/API"
-import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Button, CardTitle, CardText} from 'reactstrap';
+import Card from '../components/Card';
+import {Row, Col} from '../components/Grid'
 import { Container } from "react-bootstrap"
 import Book from '../components/Books'
 import Jumbotron from 'reactstrap/lib/Jumbotron';
@@ -14,6 +16,7 @@ class Saved extends Component {
 
   componentDidMount() {
     this.getSavedBooks();
+    console.log(this)
   }
 
   getSavedBooks = () => {
@@ -75,11 +78,11 @@ render() {
       <br/>
       <Row>
           <Col sm="12">
-          <Card body>
+          {/* <Card body>
             <CardTitle className="centerTitle">Saved Books</CardTitle>
             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
             <Button>Go somewhere</Button>
-          </Card>
+          </Card> */}
         </Col>
       </Row>
       </Container>

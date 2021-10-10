@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Form = ({q, handleInputChange, handleFormSubmit}) => {
+
+const Form = ({q, handleInputChange, handleSubmit}) => {
 
     return(
         <form>
@@ -21,7 +22,7 @@ const Form = ({q, handleInputChange, handleFormSubmit}) => {
             </div>
             <div className="pull-right">
                 <button
-                onClick={handleFormSubmit}
+                onClick={handleSubmit}
                 type="submit"
                 className="btn btn-lg btn-danger float-right"
                 >

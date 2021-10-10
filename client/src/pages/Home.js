@@ -9,13 +9,10 @@ const Home = () => {
     
     return(
         <>
-        <br/>
-        <br/>
+       
         <Container>
-        <Jumbotron className="theJumboTron">
-        <h1 style={{textAlign: "center"}}>(React) Google Books Search</h1>
-        </Jumbotron>
-        <Search></Search>
+        
+        <Search/>
         </Container>
         
             
