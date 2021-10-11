@@ -15,12 +15,13 @@ module.exports = {
                 params
             }).then(results =>
                 results.data.items.filter  ( 
-                    results =>
-                results.VolumeInfo.imageLinks.thumbnail &&
-                results.VolumeInfo.title &&
-                results.VolumeInfo.author &&
-                results.VolumeInfo.infoLink &&
-                results.VolumeInfo.description 
+                    result =>
+                result.VolumeInfo.title &&
+                result.VolumeInfo.author &&
+                result.VolumeInfo.infoLink &&
+                result.VolumeInfo.description && 
+                result.VolumeInfo.imageLinks &&
+                result.VolumeInfo.imageLinks.thumbnail 
                  )).then(apiBooks => 
                     db.Book.find().then(dbBooks =>
                         apiBooks.filter(apiBook =>

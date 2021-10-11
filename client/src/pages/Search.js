@@ -1,5 +1,5 @@
 import React, {useState, useEffect, setState, Component} from 'react';
-import {  CardTitle, CardText, FormGroup, Label, Input, Jumbotron } from 'reactstrap';
+import {  Col, CardTitle, CardText, FormGroup, Label, Input, Jumbotron } from 'reactstrap';
 import {  Avatar  } from 'antd';
 import Card from '../components/Card'
 import {List} from '../components/List'
@@ -9,40 +9,43 @@ import Form from '../components/Form'
 import {BsBookHalf, BsStarHalf} from 'react-icons/bs'
 import {GiArchiveResearch} from 'react-icons/gi'
 import './search.css'
-import {Col, Container, Row} from '../components/Grid'
+import { Container, Row} from '../components/Grid'
+const axios = require("axios")
 
 
 
-class Search extends Component {
+const Search = () => {
   
-  state = {
-    books: [],
-    q:"",
-    message: "Let's get Started"
-  };
+  // state = {
+  //   books: [],
+  //   inquiry:"",
+  //   message: "Let's get Started"
+  // };
 
-// const [search, setSearch] = useState({input: ""})
-// const [searchQuery, setsearchQuery] = useState([])
-// const [message, setMessage] = useState("FOR THE LOVE OF GOD")
-
-
-
+const [inquiry, setInquiry] = useState({input: ""})
+const [books, setBook] = useState([])
+const [message, setMessage] = useState("Search Below")
+const [apikey, setApikey] = useState("AIzaSyDU0OCVB11h9vQ3NKwdOTqPNJHre6B4NJo")
 
 
-handleInputChange = event => {
 
-  const {name, value} = event.target;
-  this.setState({[name]: value})
+
+
+const handleInputChange = event => {
+
+  const book = event.target.value;
+  setInquiry(book)
 }
 
 
 
- getBooks = () => {
-  API.getBooks(this.state.q)
+const getBooks = () => {
+  API.getBooks({inquiry})
   .then(res => 
+    
     this.setState({
-    books: res.data
-  },console.log(res.data))
+    books: {books}
+  },console.log(res.data),console.log(books))
   )
   .catch(() =>
   this.setState({
@@ -55,16 +58,20 @@ handleInputChange = event => {
   
 }
 
-handleSubmit = event => {
+const handleSubmit = event => {
   event.preventDefault();
-  this.getBooks()
-  console.log(this)
+  
+  axios.get("https://www.googleapis.com/books/v1/volumes?q=" + inquiry +" &key=" + apikey + "&maxResults=5")
+  .then(res => {
+    setBook(res.data.items)
+    console.log(res.data.items)
+  })
 }
 
- handleBookSave = id => {
-  const book = this.state.books.find(book => book.id === id);
+const handleBookSave = id => {
+  const book = books.find(book => book.id === id);
 
-  API.saveBook({
+  books.saveBook({
     googleId: book.id,
     image: book.volumeInfo.imageLinks.thumbnail,
     title: book.volumeInfo.title,
@@ -73,9 +80,10 @@ handleSubmit = event => {
     description: book.volumeInfo.description,
       
   }).then(() => this.getBooks()); 
+  
 };
 
-render () {
+
     return(
      
         <Container>
@@ -88,41 +96,61 @@ render () {
                 <h2 className="text-center">Search for and Save Books of Interest.</h2>
               </Jumbotron>
             </Col>
-            <Col size="md-12">
-              <Card title="Book Search" icon="far fa-book">
-                <Form 
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                q={this.state.q}
-                />
+            
+          </Row>
+          <Row>
+          
+          <Card title="Book Search" icon="far fa-book">
+                {/* <Form 
+                onChange={handleInputChange}
+                onClick={handleSubmit}
+                value={inquiry}
+                /> */}
+
+                <form>
+                  <div>
+                  <input onChange={handleInputChange} className="form-control"></input>
+                  </div>
+                  <br/>
+
+                  <button className=" btn btn-danger" onClick={handleSubmit}></button>
+                </form>
               </Card>
-            </Col>
           </Row>
           <Row>
             <Col size="md-12">
               <Card title="Results">
-                {this.state.books.length ? (
+                
+                {/* {books.map (book=> (
+                  <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener norferrer">
+                    <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title}/>
+                  </a>
+                ))} */}
+
+                {books.length ? (
                   <List>
-                    {this.state.books.map(book => (
-                      <Book
-                      key={book.id}
-                      title={book.volumeInfo.title}
-                      authors={book.volumeInfo.authors.join(", ")}
-                      description={book.volumeInfo.description}
-                      image={book.volumeInfo.imageLinks.thumbnail}
-                      Button={() => (
-                        <button
-                        onClick={() => this.handleBookSave(book.id)}
-                        className="btn btn-primary m1-2"
-                        >
-                          Save
-                        </button>
-                      )}
-                      />
+                    {books.map(book => (
+                      <Row>
+                                 <Col sm="12">
+                                    <img className="resultingImg"src={(book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"} />
+                                   
+                                  <h3 className="apidata apiTitle">{book.volumeInfo.title}</h3>
+                                   <h4 className="apidata apiAuthor">{book.volumeInfo.authors}</h4> 
+                                   <div>
+                                      <a className="apidata apiInfoLink" href={book.volumeInfo.infoLink} target="_blank" rel="noopener"><BsBookHalf/></a>
+                               <button className="saveBtn btn btn-danger" onClick={handleBookSave}>
+                                       {/* <BsStarHalf className="saveIcon"/> */}
+                                        </button>
+                                     </div>
+                                   <h5 className="apidata apiDescription">{book.volumeInfo.description}</h5>
+                                   <br/>
+                                   
+                                 </Col>
+                               </Row>
                     ))}
                   </List>
                 ) : (
-                  <h2 className="text-center">{this.state.message}</h2>
+                  <h2 className="text-center">{message}</h2>
                 )}
               </Card>
             </Col>
@@ -189,7 +217,7 @@ render () {
 
       // </>
     )
-  }
+  
   };
   
   export default Search;
