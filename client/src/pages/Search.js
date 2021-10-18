@@ -14,24 +14,24 @@ const axios = require("axios")
 
 
 
-const Search = () => {
+class Search extends Component {
   
-  // state = {
-  //   books: [],
-  //   inquiry:"",
-  //   message: "Let's get Started"
-  // };
+  state = {
+    books: [],
+    inquiry:"",
+    message: "Let's get Started"
+  };
 
-const [inquiry, setInquiry] = useState({input: ""})
-const [books, setBook] = useState([])
-const [message, setMessage] = useState("Search Below")
-const [apikey, setApikey] = useState("AIzaSyDU0OCVB11h9vQ3NKwdOTqPNJHre6B4NJo")
-
-
+// const [inquiry, setInquiry] = useState({input: ""})
+// const [books, setBook] = useState([])
+// const [message, setMessage] = useState("Search Below")
+// const [apikey, setApikey] = useState("AIzaSyDU0OCVB11h9vQ3NKwdOTqPNJHre6B4NJo")
 
 
 
-const handleInputChange = event => {
+
+
+ handleInputChange = event => {
 
   const book = event.target.value;
   setInquiry(book)
@@ -39,7 +39,7 @@ const handleInputChange = event => {
 
 
 
-const getBooks = () => {
+ getBooks = () => {
   API.getBooks({inquiry})
   .then(res => 
     
@@ -58,7 +58,7 @@ const getBooks = () => {
   
 }
 
-const handleSubmit = event => {
+ handleSubmit = event => {
   event.preventDefault();
   
   axios.get("https://www.googleapis.com/books/v1/volumes?q=" + inquiry +" &key=" + apikey + "&maxResults=5")
@@ -68,7 +68,7 @@ const handleSubmit = event => {
   })
 }
 
-const handleBookSave = id => {
+ handleBookSave = id => {
   const book = books.find(book => book.id === id);
 
   books.saveBook({
@@ -83,7 +83,7 @@ const handleBookSave = id => {
   
 };
 
-
+render() {
     return(
      
         <Container>
@@ -217,7 +217,7 @@ const handleBookSave = id => {
 
       // </>
     )
-  
+                }
   };
   
   export default Search;

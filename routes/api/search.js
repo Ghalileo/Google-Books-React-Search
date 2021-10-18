@@ -13,4 +13,4 @@ router
 .put(searchController.update)
 .delete(searchController.remove);
 
-    module.exports = router;
+module.exports = router;

@@ -3,9 +3,9 @@ import axios from "axios";
 export default {
     // Retrieves books from google API
     getBooks: (query) => {
-        let inquiry = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=5`
-        return axios.get(inquiry)
-        // return axios.get("/api/google", { params: { q: "" + q } });
+        // let inquiry = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=5`
+        // return axios.get(inquiry)
+        return axios.get("/api/google", { params: { q: "" + q } });
     },
     // Retrieve all saved books
     getSavedBooks: () => {
