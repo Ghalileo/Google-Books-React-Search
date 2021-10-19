@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 import Card from "../components/Card";
 import Form from "../components/Form";
-import Book from "../components/Book";
+import Book from "../components/Books"
 import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { List } from "../components/List";
+import {BsBookHalf, BsStarHalf} from 'react-icons/bs'
 
 
 class Home extends Component {
@@ -22,19 +23,18 @@ class Home extends Component {
       };
 
       handleInputChange = event => {
-
         const {name, value} = event.target;
         this.setState({
             [name]: value
-        })
-      }
+        });
+      };
 
       getBooks = () => {
           API.getBooks(this.state.q)
             .then(res => 
                 this.setState({
                     books: res.data
-                }, console.log(res))
+                })
                 )
                 .catch(() =>
                 this.setState({
@@ -44,7 +44,7 @@ class Home extends Component {
                 );
       };
 
-      handleFormSubmit = event => {
+      handleSubmit = event => {
           event.preventDefault();
           this.getBooks();
       };
@@ -77,61 +77,51 @@ class Home extends Component {
                 <h2 className="text-center">Search for and Save Books of Interest.</h2>
               </Jumbotron>
             </Col>
+            <Col size="md-12">
+                <Card title="Book Search" icon="far fa-book">
+                    <Form
+                        handleInputChange={this.handleInputChange}
+                        handleSubmit={this.handleSubmit}
+                        q={this.state.q}
+                        
+                    />
+                </Card>
+            </Col>
             
           </Row>
-          <Row>
           
-          <Card title="Book Search" icon="far fa-book">
-                {/* <Form 
-                onChange={handleInputChange}
-                onClick={handleSubmit}
-                value={inquiry}
-                /> */}
-
-                <form>
-                  <div>
-                  <input onChange={handleInputChange} className="form-control"></input>
-                  </div>
-                  <br/>
-
-                  <button className=" btn btn-danger" onClick={handleSubmit}></button>
-                </form>
-              </Card>
-          </Row>
           <Row>
             <Col size="md-12">
               <Card title="Results">
                 
-                {/* {books.map (book=> (
+                {/* {this.state.books.map (book=> (
                   <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener norferrer">
                     <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title}/>
                   </a>
                 ))} */}
 
-                {books.length ? (
+                {this.state.books.length ? (
                   <List>
-                    {books.map(book => (
-                      <Row>
-                                 <Col sm="12">
-                                    <img className="resultingImg"src={(book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.smallThumbnail : "https://webhostingmedia.net/wp-content/uploads/2018/01/http-error-404-not-found.png"} />
-                                   
-                                  <h3 className="apidata apiTitle">{book.volumeInfo.title}</h3>
-                                   <h4 className="apidata apiAuthor">{book.volumeInfo.authors}</h4> 
-                                   <div>
-                                      <a className="apidata apiInfoLink" href={book.volumeInfo.infoLink} target="_blank" rel="noopener"><BsBookHalf/></a>
-                               <button className="saveBtn btn btn-danger" onClick={handleBookSave}>
-                                       {/* <BsStarHalf className="saveIcon"/> */}
-                                        </button>
-                                     </div>
-                                   <h5 className="apidata apiDescription">{book.volumeInfo.description}</h5>
-                                   <br/>
-                                   
-                                 </Col>
-                               </Row>
+                    {this.state.books.map(book => (
+                      <Book
+                      key={book.id}
+                      title={book.volumeInfo.title}
+                      authors={book.volumeInfo.authors}
+                      description={book.volumeInfo.description}
+                      image={book.volumeInfo.imageLinks.thumbnail}
+                      Button={() => (
+                          <button 
+                          onClick={() => this.handleBookSave(book.id) ,console.log(book.id)}
+                          className="btn btn-primary m1-2"
+                          >
+                              Save
+                        </button>
+                      )}
+                      />
                     ))}
                   </List>
                 ) : (
-                  <h2 className="text-center">{message}</h2>
+                  <h2 className="text-center">{this.state.message}</h2>
                 )}
               </Card>
             </Col>
@@ -193,8 +183,8 @@ class Home extends Component {
       // )}</List>): (<h2>{this.state.message}</h2>)  }
 
       // </>
-    )
-}
+    );
+  }
 }
 
 export default Home;

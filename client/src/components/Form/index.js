@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Form = ({inquiry, handleInputChange, handleSubmit}) => {
+const Form = ({q, handleInputChange, handleSubmit}) => {
 
     return(
         <form>
@@ -13,9 +13,9 @@ const Form = ({inquiry, handleInputChange, handleSubmit}) => {
                 className="form-control"
                 id="Title"
                 type="text"
-                value={inquiry}
+                value={q}
                 placeholder="A Game of Thrones"
-                name="inquiry"
+                name="q"
                 onChange={handleInputChange}
                 required
                 />

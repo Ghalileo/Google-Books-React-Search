@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-const Jumbotron = ({chilrdren}) => {
-return <div className="jumbotron mt-4"></div>
+const Jumbotron = ({children}) => {
+return <div className="jumbotron mt-4">{children}</div>
 
 }
 
