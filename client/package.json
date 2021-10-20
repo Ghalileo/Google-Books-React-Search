@@ -6,6 +6,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "antd": "^4.16.13",
+    "axios": "^0.23.0",
     "react": "^16.6.3",
     "react-bootstrap": "^1.6.4",
     "react-dom": "^16.13.1",
