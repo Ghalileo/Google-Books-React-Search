@@ -4,7 +4,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
 const routes = require("./routes");
-const uri = "mongodb+srv://Ghalileo:Triforce13@googlebooks.qmqah.mongodb.net/googlebooks?retryWrites=true&w=majority";
+require('dotenv').config();
+const uri = process.env.URI;
 
 
 //MiddleWare configuring body parsing for ajax requests
