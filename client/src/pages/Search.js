@@ -23,10 +23,7 @@ class Search extends Component {
     message: "Let's get Started"
   };
 
-// const [inquiry, setInquiry] = useState({input: ""})
-// const [books, setBook] = useState([])
-// const [message, setMessage] = useState("Search Below")
-// const [apikey, setApikey] = useState("AIzaSyDU0OCVB11h9vQ3NKwdOTqPNJHre6B4NJo")
+
 
 
 
