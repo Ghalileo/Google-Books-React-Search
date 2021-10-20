@@ -7,6 +7,10 @@ const routes = require("./routes");
 require('dotenv').config();
 const uri = process.env.URI;
 
+// Test Route for production build
+app.get("/api/test", (req, res) => {
+  res.send("Congrats.  It worked");
+})
 
 //MiddleWare configuring body parsing for ajax requests
 app.use(express.urlencoded({ extended: true}));
@@ -28,7 +32,12 @@ mongoose.connect(process.env.MONGODB_URI || uri,{
 
 // Define any API routes before this runs
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"),
+  (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 app.listen(PORT, function() {
