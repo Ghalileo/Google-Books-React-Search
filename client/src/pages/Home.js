@@ -59,7 +59,7 @@ class Home extends Component {
               authors: book.volumeInfo.authors,
               description: book.volumeInfo.description,
               image: book.volumeInfo.imageLinks.thumbnail
-          }).then(() => this.getBooks());
+          }).then(() => this.getBooks(), console.log(book));
       }
 
 
@@ -108,10 +108,11 @@ class Home extends Component {
                       title={book.volumeInfo.title}
                       authors={book.volumeInfo.authors}
                       description={book.volumeInfo.description}
+                      link={book.volumeInfo.infoLink}
                       image={book.volumeInfo.imageLinks.thumbnail}
                       Button={() => (
                           <button 
-                          onClick={() => this.handleBookSave(book.id) ,console.log(book.id)}
+                          onClick={() => this.handleBookSave(book.id)}
                           className="btn btn-primary m1-2"
                           >
                               Save

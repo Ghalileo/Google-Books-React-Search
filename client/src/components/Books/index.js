@@ -13,7 +13,7 @@ const Book = ({title, authors, link, description, image, Button}) => {
                 <h3 className="font-italic">{title}</h3>
                 </Col>
                 <Col size="md-8">
-                <h3 className="font-italic">Written by {authors}</h3>
+                <h3 className="font-italic small">Written by {authors}</h3>
                 </Col>
                 <Button/>
             </Row>
